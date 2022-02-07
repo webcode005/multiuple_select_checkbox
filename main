@@ -1,0 +1,74 @@
+//multiple checkbox checked
+
+//insert
+
+
+
+// show
+
+<ul style="padding-left: 0;">    
+
+    <?php 
+
+    $checked_arr=explode(",", $row['cat_id']);
+
+    // Create checkboxes
+
+    $sql_cat=$conn->query("SELECT * FROM `webinar_cat` ORDER By id DESC ");
+    $cat_arr=array();
+    while($row_cat=mysqli_fetch_assoc($sql_cat)){
+      $cat_arr[]=$row_cat;  
+    }
+
+    foreach($cat_arr as $list){
+          $checked = "";
+          if(in_array($list['id'],$checked_arr)){
+            $checked = "checked";
+          }
+          echo '<input type="checkbox" name="cat_id[]" value="'.$list['id'].'" '.$checked.' > '.$list['cat'].' <br/>';
+        }
+        ?>
+
+    </ul>  
+
+
+****** Multiple selected 
+
+// Insert
+     $selected1=$_POST['prod_type'];
+     
+      $prod_type="";  
+      foreach($selected1 as $chk1)  
+         {  
+            $prod_type .= $chk1.",";  
+         } 
+
+
+// show
+
+	<select class="form-control" id="pt" name="prod_type[]" multiple>
+        			    
+        			    
+    <?php    			    
+        			     $selected_arr=explode(",", $pro_data['prod_type']);
+
+    // Create checkboxes
+
+    $sql_cat=$conn->query("SELECT * FROM `product_type` ");
+    $cat_arr=array();
+    while($row_cat=mysqli_fetch_assoc($sql_cat)){
+      $cat_arr[]=$row_cat;  
+    }
+
+    foreach($cat_arr as $list){
+          $selected = "";
+          echo $list['id'];
+          if(in_array($list['id'],$selected_arr)){
+            $selected = "selected";
+          }
+          echo '<option value="'.$list['id'].'" '.$selected.' > '.$list['pro_type'].'</option>';
+        }
+        ?>
+
+        			    
+        			</select>  
